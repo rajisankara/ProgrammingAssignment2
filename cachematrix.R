@@ -36,7 +36,8 @@ cacheSolve <- function(x, ...) {
  return(inv)  ## if inv is not null retrun data from cache
   }
  mat <- x$get()
- inv <- solve(mat,...) ##if inv is null compute inverse
+ inv <- tryCatch(solve(mat,...) , error = function(e) 
+ {print("Cant find inverse of the matrix")}) ##if inv is null compute inverse
  x$setInverse(inv)
  inv
 }
